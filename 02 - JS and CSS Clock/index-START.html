@@ -80,7 +80,8 @@
       }
 
       function setDate() {
-        // para segundos eu preciso dividir os segundos por 60(que são as unidades de segundos) que ao multiplicar por 360 eu obtenho
+        // para segundos eu preciso dividir os segundos por 60(que são as unidades de segundos)
+        // que ao multiplicar por 360 eu obtenho
         // a posição em graus da hand na face, então eu somo 90 para compensar.
         // Pois, o padrão (0deg) é a esquerda, e no nosso relógio é preciso estar 90deg (topo)
         const secondsDegree = (getDate().seconds / 60) * 360 + 90;
