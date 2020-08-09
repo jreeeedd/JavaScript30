@@ -74,8 +74,19 @@
       var inputs = document.querySelectorAll(".controls input");
 
       function handleUpdate() {
+        //dataset é um objeto que contém todos os valores
+        //de atributos data (ex: data-js)
+        //dataset é um objeto do elemento.
+        //Isso significa que eu só posso usá-lo
+        //dentro do escopo do elemento que eu capturei
+
+        //E consequentemente, só consigo pegar os
+        //valores dos atributos dos elementos que eu
+        //capturei
         var suffix = this.dataset.sizing || "";
 
+        // seto uma nova propriedade ao documentElement
+        // pra cada elemento contido na NodeList
         document.documentElement.style.setProperty(
           `--${this.name}`,
           this.value + suffix
