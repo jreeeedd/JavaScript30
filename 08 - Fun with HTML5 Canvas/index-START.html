@@ -1,19 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>HTML5 Canvas</title>
-</head>
-<body>
-<canvas id="draw" width="800" height="800"></canvas>
-<script>
-</script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+  </head>
+  <body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+      const canvas = document.querySelector("#draw");
 
-<style>
-  html, body {
-    margin: 0;
-  }
-</style>
+      // quando desenhamos no canvas, o desenho não é
+      // feito diretamente nele e sim em um contexto
+      // que pode ser tanto 2D quanto 3D
+      const ctx = canvas.getContext("2d");
 
-</body>
+      // essa variável serve para que possamos
+      // setá-la de acordo com o clique do mouse.
+      // Ou seja, se o mouse estiver apenas
+      // se mexendo dentro da área do canvas, mas
+      // não estiver pressionado, então isDrawing = false
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+      let hue = 0;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // define o tipo de borda da linha
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      // define o tamanho da linha
+      ctx.lineWidth = 20;
+
+      function draw(e) {
+        if (!isDrawing) return;
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+
+        // avisa onde a linha deve terminar
+        ctx.moveTo(lastX, lastY);
+        // onde a linha inicia
+        ctx.lineTo(e.offsetX, e.offsetY);
+        // manda desenhar
+        ctx.stroke();
+
+        // precisamos setar a última posição
+        // dos eixos x e y para onde nosso mouse
+        // está localizado na tela
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        hue++;
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+
+        // quando clicarmos, precisamos atualizar
+        // a posição do ultimo eixo x e y
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+
+        hue++;
+      });
+
+      canvas.addEventListener("mousemove", draw);
+
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+      canvas.addEventListener("mouseout", () => (isDrawing = false));
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
 </html>
