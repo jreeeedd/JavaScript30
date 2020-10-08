@@ -66,6 +66,9 @@ h2 {
   margin-right: 10px;
 }
 
+/* localiza o input filho de plates que está checked, então pega 
+o seu irmão label e adiciona o emoji ao seu before */
+
 .plates input:checked + label:before {
   content: "🌮";
 }
